@@ -1,8 +1,49 @@
-class Solution
-{
+class Solution {
 public:
-    bool isZeroArray(vector<int> &nums, vector<vector<int> > &queries)
-    {
+    bool isZeroArray(vector<int>& nums, vector<vector<int>>& que) {
+
+        int ct=0;
+
+        // for(int i=0;i<que.size();i++){
+
+        //     int start=que[i][0];
+        //     int end=que[i][1];
+
+        //     for(int j=start;j<=end;j++){
+        //         if(j>=0 && j<arr.size() && arr[j]>0){
+        //             arr[j]--;
+
+        //             if(arr[j]<=0){
+        //                 ct++;
+        //             }
+
+
+        //             if(ct==arr.size()){
+        //                 break;
+        //             }
+        //         }
+        //     }
+
+        // }
+
+        // ct=0;
+
+        
+
+        // for(int i=0;i<arr.size();i++){
+        //     if(arr[i]==0){
+        //         ct++;
+        //     }
+
+        // }
+
+        // if(ct==arr.size()){
+
+        //     return true;
+
+
+        // }
+
         int n = nums.size();
         vector<int> sweep_line(n + 1, 0);
 
@@ -27,8 +68,8 @@ public:
             }
         }
         return flag == 1 ? true : false;
+
+
+        
     }
 };
-
-// tc = O(q+n)
-// sc = O(q+n)
