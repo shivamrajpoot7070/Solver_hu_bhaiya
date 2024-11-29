@@ -15,26 +15,21 @@ public:
 
 
                 if(time[st.top()]<time[i]){
-
                     ans+=time[st.top()];
                     st.push(i);
                 }
 
                 else{
-
                     ans+=time[i];
-
                 }
 
                 
             }
 
             else{
-
+                
                 st.push(i);
             }
-
-
         }
 
 
