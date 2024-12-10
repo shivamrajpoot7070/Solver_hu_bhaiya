@@ -3,145 +3,114 @@ public:
     int maximumLength(string str) {
 
 
-        map<char,int>mpp;
+    //     map<char,int>mpp;
 
-        for(int i=0;i<str.length();i++){
-            mpp[str[i]]++;
-        }
-
-        bool valid=false;
-        bool inv=false;
-
-        for(auto it:mpp){
-            if(it.second>=2){
-                valid=true;
-            }
-        }
-
-        if(!valid){
-            return -1;
-        }
-
-        int maxi=INT_MIN;
-
-
-        for (auto it = mpp.rbegin(); it != mpp.rend(); ++it) {
-
-            if(it->second>=3){
-
-                char ch=it->first;
-                int size=it->second;
-                int till=1;
-
-                while(till<size){
-                    int j=0;
-                    int ct=0;
-                    int i=0;
-                    while(j<str.length()){
-
-                        if(j-i+1==till){
-                            bool flag=true;
-                            for(int k=i;k<=j;k++){
-                                if(str[k]!=ch){
-                                    flag=false;
-                                    break;
-                                }
-                            }
-
-                            if(flag){
-                                ct++;
-                            }
-
-                            i++;
-                        }
-                        j++;
-                        
-                    }
-
-                    if(ct>=3){
-                        maxi=max(maxi,till);
-                    }
-
-                    till++;
-            
-                }
-            }
-    }
-
-    if(maxi==INT_MIN){
-        return -1;
-    }
-
-    return maxi;
-
-    
-
-    //  map<char, int> mpp;
-
-    //     // Count the frequency of all characters
-    //     for (int i = 0; i < str.length(); i++) {
+    //     for(int i=0;i<str.length();i++){
     //         mpp[str[i]]++;
     //     }
 
-    //     bool valid = false;
+    //     bool valid=false;
+    //     bool inv=false;
 
-    //     // Check if any substring can ever be valid by having at least two instances
-    //     for (auto it : mpp) {
-    //         if (it.second >= 2) {
-    //             valid = true;
+    //     for(auto it:mpp){
+    //         if(it.second>=2){
+    //             valid=true;
     //         }
     //     }
 
-    //     if (!valid) {
-    //         return -1; // If no repeated substring is possible
+    //     if(!valid){
+    //         return -1;
     //     }
 
-    //     int maxi = INT_MIN;
+    //     int maxi=INT_MIN;
 
-    //     // Iterate over characters in reverse order
+
+    //     // jitna bhi letter 3 baar se jyda aaya usko check kr lenge
+    //     // har window size ke liy agr utne size ka subarray 3 baar present hai to 
+    //    // thik nai to usse bda
+
     //     for (auto it = mpp.rbegin(); it != mpp.rend(); ++it) {
-    //         if (it->second >= 3) { // Only consider characters that repeat at least 3 times
-    //             char ch = it->first;
-    //             int size = it->second;
-    //             int till = 1; // Start testing substrings of size `till`
 
-    //             while (till <= size) { // Test substrings of different lengths
-    //                 int i = 0;
-    //                 int ct = 0;
-    //                 int j = 0;
+    //         if(it->second>=3){  
 
-    //                 // Sliding window with j - i + 1 logic
-    //                 while (j < str.size()) {
-    //                     if (j - i + 1 == till) { // Window size matches `till`
-    //                         bool flag = true;
-    //                         for (int k = i; k <= j; k++) { // Verify substring validity
-    //                             if (str[k] != ch) {
-    //                                 flag = false;
+    //             char ch=it->first;
+    //             int size=it->second;
+    //             int till=1;
+
+    //             while(till<size){  //  
+    //                 int j=0;
+    //                 int ct=0;
+    //                 int i=0;
+    //                 while(j<str.length()){
+
+    //                     if(j-i+1==till){    // for every size till max occurence of any letter
+    //                         bool flag=true;
+    //                         for(int k=i;k<=j;k++){
+    //                             if(str[k]!=ch){
+    //                                 flag=false;
     //                                 break;
     //                             }
     //                         }
 
-    //                         if (flag) {
+    //                         if(flag){
     //                             ct++;
     //                         }
 
     //                         i++;
     //                     }
-
     //                     j++;
+                        
     //                 }
 
-    //                 // Update if substring occurs at least 3 times
-    //                 if (ct >= 3) {
-    //                     maxi = max(maxi, till);
+    //                 if(ct>=3){
+    //                     maxi=max(maxi,till);
+    //                 }
+    //                 else{      // agr 1 size ka ni bna rha 3 subarray to  2 ka to pkka ni bnayga isly break
+    //                     break;
     //                 }
 
-    //                 till++; // Increase the length of substrings tested
+    //                 till++;
+            
     //             }
     //         }
-    //     }
+    // }
 
-    //     return (maxi == INT_MIN) ? -1 : maxi;
+    // if(maxi==INT_MIN){
+    //     return -1
+    // }
+    
+    unordered_map <string,int>mpp;
+
+    for(int i=0;i<str.length();i++){
+        string temp="";
+        char last=str[i];
+        for(int j=i;j<str.length();j++){
+
+            if(str[j]==last){
+                temp+=str[j];
+                mpp[temp]++;
+                last=str[j];
+            }
+            else{
+                break;
+            }
+        }
+    }
+
+        int maxi=INT_MIN;
+
+        for(auto it:mpp){
+            if(it.second>=3){
+                string temp=it.first;
+                int n=temp.length();
+                maxi=max(maxi,n);
+            }
+        }
+
+        if(maxi==INT_MIN){
+            return -1;
+        }
+    return maxi;
         
     }
 };
