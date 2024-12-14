@@ -1,23 +1,22 @@
 class Solution {
 public:
 
-    int chori(vector<int>& arr,int ind,vector<int>&dp){
+    int b(vector<int>& arr,int i,vector<int>&dp){
 
-        if(ind>=arr.size()){
+        if(i>=arr.size()){
             return 0;
         }
 
-        if(dp[ind]!=-1){
-            return dp[ind];
+        if(dp[i]!=-1){
+            return dp[i];
         }
-        
-        int krochori=arr[ind]+chori(arr,ind+2,dp);
-        
-        int mtkro=chori(arr,ind+1,dp);
-
-        return dp[ind]=max(krochori,mtkro);
 
 
+        int chori=arr[i]+b(arr,i+2,dp);
+
+        int notchori=b(arr,i+1,dp);
+
+        return dp[i]=max(chori,notchori);
     }
 
 
@@ -26,12 +25,8 @@ public:
         int n=arr.size();
 
         vector<int>dp(n+1,-1);
-        int ind=0;
 
-        return chori(arr,ind,dp);
-
-
-      
+        return b(arr,0,dp);
         
     }
 };
