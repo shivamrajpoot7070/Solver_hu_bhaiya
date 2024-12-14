@@ -4,7 +4,7 @@ public:
 
 
 
-     int i = 0, j = 0, n = arr.size();
+        int i = 0, j = 0, n = arr.size();
         long long ct = 0;
 
         pair<int, int> maxi = {arr[0], 0}; 
