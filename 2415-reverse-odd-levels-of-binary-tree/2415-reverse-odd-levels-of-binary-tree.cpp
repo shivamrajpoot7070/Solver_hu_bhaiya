@@ -18,13 +18,14 @@ public:
             return;
         }
 
+        
+
+        rev(l->left,r->right,ct+1);
+        rev(l->right,r->left,ct+1);
 
         if(ct%2!=0){
             swap(l->val,r->val);
         }
-
-        rev(l->left,r->right,ct+1);
-        rev(l->right,r->left,ct+1);    
 
     }
 
@@ -32,9 +33,7 @@ public:
     TreeNode* reverseOddLevels(TreeNode* root) {
 
         int ct=1;
-
         rev(root->left,root->right,ct);
-
         return root;
         
     }
