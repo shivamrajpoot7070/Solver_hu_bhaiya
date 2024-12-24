@@ -35,11 +35,17 @@ public:
 
             else{
 
+                if(st>te){
+                    ans.push_back({ts,te});
+                    ans.push_back({st,ed});
+                }
+
+                else{
+                    ans.push_back({st,ed});
+                    ans.push_back({ts,te});
+                }
                 
-
-                ans.push_back({st,ed});
-                ans.push_back({ts,te});
-
+                
                 return ans;
             }
             
