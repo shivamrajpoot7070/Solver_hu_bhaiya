@@ -10,46 +10,34 @@ public:
 
         for(int i=1;i<arr.size()-1;i++){
 
+
+            if(arr[i]>arr[i-1] && arr[i]>arr[i+1]){
+
             int mini=arr[i];
             int maxi=arr[i];
 
             int j=i-1;
             int r=i+1;
 
-            for(j;j>=0;j--){
-                if(arr[j]<mini){
-                    mini=arr[j];
-                }
-                else{
-                    j++;
-                    break;
-                }
-            }
+           while(j>=0 && arr[j]<mini){
+            mini=arr[j];
+            j--;
+           }
 
-            for(r;r<arr.size();r++){
-                if(arr[r]<maxi){
-                    maxi=arr[r];
-                }
-                else{
-                    r--;
-                    break;
-                }
-            }
+           while(r<arr.size() && arr[r]<maxi){
+            maxi=arr[r];
+            r++;
+           }
 
-            if(j<0){
-                j=0;
-            }
-            if(r>=arr.size()){
-                r=arr.size()-1;
-            }
+           j++;
+           r--;
 
-            if(r-i==i-j){
-                len=max(len,r-j+1);
-            }
 
-            
+           len=max(len,r-j+1);
+
+            }
+ 
         }
-
 
         if(len==1 || len==INT_MIN){
             return 0;
