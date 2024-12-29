@@ -1,9 +1,9 @@
 class Solution {
 public:
 
-   int dp[1000][1000];
+//    int dp[1000][1000];
 
-    int find(vector<int>& arr, int tar,int i,vector<vector<int>>&dp){
+    int find(vector<int>& arr, int tar,int i){
 
         if(i==arr.size()){
             if(tar==0){
@@ -32,8 +32,8 @@ public:
         //     return 0;
         // }
 
-        int pos=find(arr,tar-arr[i],i+1,dp);
-        int neg=find(arr,tar+arr[i],i+1,dp);
+        int pos=find(arr,tar-arr[i],i+1);
+        int neg=find(arr,tar+arr[i],i+1);
 
         // if(tar>=0){
         //     return dp[i][tar]=pos+neg;
@@ -50,9 +50,9 @@ public:
         int i=0;
         int n=arr.size();
 
-        vector<vector<int>>dp(n,vector<int>(tar,-1));
+        // vector<vector<int>>dp(n,vector<int>(tar,-1));
 
-        return find(arr,tar,i,dp);
+        return find(arr,tar,i);
   
         
     }
