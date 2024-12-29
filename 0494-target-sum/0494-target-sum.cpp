@@ -1,25 +1,59 @@
 class Solution {
-    int dp[21][1001];
 public:
-    int f(int j, int sum, vector<int>& nums){
-        if (j==0) return sum==0?1:0;
-        if (dp[j][sum]!=-1) return dp[j][sum];
-        int x=nums[j-1];
-        int ans=f(j-1, sum, nums);// without change sign 
-        if (sum>=x) // sign change
-            ans+=f(j-1, sum-x, nums);
-        return dp[j][sum]=ans;   
+
+   int dp[1000][1000];
+
+    int find(vector<int>& arr, int tar,int i,vector<vector<int>>&dp){
+
+        if(i==arr.size()){
+            if(tar==0){
+                return 1;
+            }
+            return 0;
+        }
+
+        // if(tar==0){
+        //     return 1;
+        // }
+
+
+        // if(dp[i][tar]!=-1 && tar>0){
+        //     return dp[i][tar];
+        // }
+
+        // ye base case ni hoga qki + - hai na to keh nai skte kha tar<0 hai qki aagr
+        // jake bdh bhi skta hai
+
+        // if(tar==0){
+        //     return 1;
+        // }
+
+        // if(tar<0){
+        //     return 0;
+        // }
+
+        int pos=find(arr,tar-arr[i],i+1,dp);
+        int neg=find(arr,tar+arr[i],i+1,dp);
+
+        // if(tar>=0){
+        //     return dp[i][tar]=pos+neg;
+        // 
+        
+
+        return pos+neg;
+
     }
-    int findTargetSumWays(vector<int>& nums, int target) {
-        const int n = nums.size();
-        int sum=accumulate(nums.begin(), nums.end(), 0);
-        int diff=sum-target;
 
-        // Check if it's possible to achieve the target
-        if (diff<0|| diff%2!=0) return 0;
 
-        diff/=2;
-        memset(dp, -1, sizeof(dp));
-        return f(n, diff, nums);
+    int findTargetSumWays(vector<int>& arr, int tar) {
+
+        int i=0;
+        int n=arr.size();
+
+        vector<vector<int>>dp(n,vector<int>(tar,-1));
+
+        return find(arr,tar,i,dp);
+  
+        
     }
 };
