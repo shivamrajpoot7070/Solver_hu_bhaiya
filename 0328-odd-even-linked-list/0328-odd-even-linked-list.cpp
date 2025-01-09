@@ -12,6 +12,7 @@ class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
 
+        
       if(head==NULL || head->next==NULL){
         return head;
       }
@@ -26,10 +27,10 @@ public:
       while(even && even->next){
 
         odd->next=even->next;   // agr even node rhega tab na judega isly loop me even ya even ka next hai
-        odd=odd->next;
+        odd=even->next;
 
         even->next=odd->next;
-        even=even->next;
+        even=odd->next;
 
       }
 
@@ -38,46 +39,6 @@ public:
 
       return odhead;
 
+    
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // ListNode *even=head->next;
-    // ListNode *odd=head;
-    // ListNode *evennode=even;
-
-    // while(even && even->next){
-
-    //   odd->next=even->next;
-    //   odd=odd->next;
-
-    //   even->next=odd->next;
-    //   even=even->next;
-
-    // }
-
-    // odd->next=evennode;
-
-    // return head;
-
-    // }
-
-
-
 };
