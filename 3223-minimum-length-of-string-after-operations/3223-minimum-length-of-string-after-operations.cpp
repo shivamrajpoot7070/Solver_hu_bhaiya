@@ -37,15 +37,15 @@ public:
         }
 
         if(left&&right){
-            ct+=2;
-            s[li]='#';
-            s[ri]='#';
+            ct+=2;  // deleted char count
+            s[li]='#';  // deleted character
+            s[ri]='#';  // deleted character
         }
 
       }
       }
 
-      return s.length()-ct;
+      return s.length()-ct;  // total - deleted char count
         
     }
 };
