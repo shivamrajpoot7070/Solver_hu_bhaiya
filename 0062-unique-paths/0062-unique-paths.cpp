@@ -1,49 +1,42 @@
 class Solution {
-public: 
+public:
 
-    int maze(int down,int right,int m,int n,vector<vector<int>>&dp){
+    int find(int i,int j,int m,int n,vector<vector<int>>&dp){
 
 
-      if(down==m-1 || right==n-1){
-        return 1;
-      }
 
-      if(down>=m || right>=n){
-        return 0;
-      }
+        if(i==m-1 && j==n-1){
+            return 1;
+        }
 
-      if(dp[down][right]!=-1){
-        return dp[down][right];
-      }
 
-      
+        if(i>=m || j>=n){
+            return 0;
+        }
 
-      
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
 
-      int ryt=maze(down,right+1,m,n,dp);
-      int dow=maze(down+1,right,m,n,dp);
 
-      int ct=ryt+dow;
+        int down=find(i+1,j,m,n,dp);
+        int right=find(i,j+1,m,n,dp);
 
-      return dp[down][right]=ct;
+
+        return dp[i][j]=down+right;
 
     }
 
 
-
-
     int uniquePaths(int m, int n) {
 
-      int down=0;
-      int right=0;
 
-      int ct=0;
-      vector<vector<int>>dp(m,vector<int>(n,-1));
+        int i=0;
+        int j=0;
 
+        vector<vector<int>>dp(m,vector<int>(n,-1));
 
-      return maze(down,right,m,n,dp);
-
-
+        return find(i,j,m,n,dp);
         
     }
 };
