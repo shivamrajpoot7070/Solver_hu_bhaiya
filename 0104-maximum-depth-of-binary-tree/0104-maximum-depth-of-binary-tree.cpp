@@ -12,57 +12,31 @@
 class Solution {
 public:
 
-    // int heightt(TreeNode* root){
+void dep(TreeNode* root,int ct,int &mini){
 
-    // if(root==NULL){
-    //     return 0;
-    // }
+      if(root==NULL){
+        return;
+      }
 
-    // int t_left=heightt(root->left);
-    // int t_right=heightt(root->right);
+      if(root->left==NULL && root->right==NULL){
+        mini=max(mini,ct);
+      }
 
-    // return 1+max(t_left,t_right);
-
-    // }
-
-    int maxDepth(TreeNode* root) {
-
-    //   return heightt(root);
-
-    queue<TreeNode*>q;
-
-
-    q.push(root);
-
-    int ct=0;
-
-    while(q.size()>0){
-
-        int n=q.size();
-        ct++;
-
-        while(n--){
-
-            TreeNode*temp=q.front();
-            q.pop();
-
-
-            if(temp->left){
-                q.push(temp->left);
-            }
-
-            if(temp->right){
-                q.push(temp->right);
-            }
-        }
-
+      ct=ct+1;
+      dep(root->left,ct,mini);
+      
+      dep(root->right,ct,mini);
+      // ct--;
 
     }
+    int maxDepth(TreeNode* root) {
 
-    return ct;
+        int ct=1;
+        int mini=0;
 
+        dep(root,ct,mini);
 
-
+        return mini;
         
     }
 };
