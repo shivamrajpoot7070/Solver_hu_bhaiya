@@ -1,59 +1,34 @@
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>& arr) {
+    vector<vector<int>> merge(vector<vector<int>>&arr) {
 
-        vector<vector<int>>ans;
-        sort(arr.begin(),arr.end());
+       
+       sort(arr.begin(), arr.end());
 
-        priority_queue<pair<int,int>>pq;
+        vector<vector<int>> ans;
 
-      //  priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        // Initialize start and end with the first interval
+        int st = arr[0][0];
+        int ed = arr[0][1];
 
+        for (int i = 1; i < arr.size(); i++) {
+            int cs = arr[i][0]; // Current interval's start
+            int cd = arr[i][1]; // Current interval's end
 
-        for(int i=0;i<arr.size();i++){
-
-            int start=arr[i][0];
-            int end=arr[i][1];
-
-
-            if(pq.size()>0 && pq.top().first>=start){
-               // pq.top().first=end;
-
-                
-                int mini=min(pq.top().second,start);
-                int maxi=max(pq.top().first,end);
-                int ed=maxi;
-                int st=mini;
-
-                pq.pop();
-                pq.push({ed,st});
+            if (cs <= ed) {
+                // Overlapping intervals: update the end to the maximum
+                ed = max(ed, cd);
             }
-
-            else{
-
-                pq.push({end,start});
+             else {
+                // Non-overlapping interval: push the previous interval and reset
+                ans.push_back({st, ed});
+                st = cs;
+                ed = cd;
             }
-
         }
 
-        while(pq.size()>0){
-
-            vector<int>temp;
-
-            temp.push_back(pq.top().second);
-            temp.push_back(pq.top().first);
-
-
-            ans.push_back(temp);
-
-            pq.pop();
-        }
-
-
-
-
-
-        
+        // Push the last interval
+        ans.push_back({st, ed});
 
         return ans;
         
