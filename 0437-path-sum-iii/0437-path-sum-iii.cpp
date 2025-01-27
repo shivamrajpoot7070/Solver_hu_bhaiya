@@ -11,52 +11,45 @@
  */
 class Solution {
 public:
+    void find(TreeNode* root, int target,unordered_map<int,int>&mpp,int &ct,long long currsum){
 
-void count(TreeNode *root, int t,long long &ct,long long s){
 
-    if(root==NULL){
-        return;
+        if(root==NULL){
+            return;
+        }
+
+        currsum+=root->val;
+
+        if(mpp.find(currsum-target)!=mpp.end()){
+            ct+=mpp[(currsum-target)];
+        }
+
+        mpp[currsum]++;
+
+        find(root->left,target,mpp,ct,currsum);
+        find(root->right,target,mpp,ct,currsum);
+        mpp[currsum]--;
+
+
     }
+    int pathSum(TreeNode* root, int target) {
 
 
-    s+=root->val;
+        if(target==0){
+            return 0;
+        }
 
-    if(s==t){
-        ct++;
-        //return;
-    }
+        unordered_map<int,int>mpp;
 
+        mpp[0]=1;
+        int ct=0;
 
+        long long currsum=0;
 
-    count(root->left,t,ct,s);
- count(root->right,t,ct,s);
+        find(root,target,mpp,ct,currsum);
 
-}
+        return ct;
 
-  
-    int pathSum(TreeNode* root, int t) {
-
-
-      if(root==NULL){
-        return 0;
-    }
-
-    long long ct=0;
-
-    long long s=0;
-
-    count(root,t,ct,s);
-
-    ct+=pathSum(root->left, t);
-    ct+=pathSum(root->right,t);
-     
-     
-     return ct;
-    
-
-      
-
-      
         
     }
 };
