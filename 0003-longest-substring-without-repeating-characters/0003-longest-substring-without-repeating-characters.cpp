@@ -21,7 +21,7 @@ public:
 
             mpp[arr[j]]++;
 
-            while(mpp.size()<j-i+1){
+            while(mpp[arr[j]]>1){
                 mpp[arr[i]]--;
 
                 if(mpp[arr[i]]==0){
