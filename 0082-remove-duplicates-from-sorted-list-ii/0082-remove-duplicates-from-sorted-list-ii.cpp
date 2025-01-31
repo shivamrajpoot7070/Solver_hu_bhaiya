@@ -11,58 +11,48 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        if(head==NULL || head->next==NULL){
-                    return head;
-                          }
-
-                                ListNode*curr=head->next;
-                                      ListNode*prev=head;
-
-                                            int num=-2332;
-
-                                                  ListNode*dummy=new ListNode(-1);
-                                                        ListNode*temp=dummy;
 
 
-                                                              while(curr!=NULL){
+        if(head==NULL){
+            return head;
+        }
 
-                                                                      if(prev->val!=curr->val && prev->val!=num){
+        ListNode* aage=head->next;
+        ListNode* dummy=new ListNode(-1);
+        ListNode* temp=dummy;
+        ListNode* move=head;
 
-                                                                                ListNode *t=new ListNode(prev->val);
+        while(aage!=NULL){
 
-                                                                                          temp->next=t;
-                                                                                                    temp=t;
-                                                                                                              curr=curr->next;
-                                                                                                                        prev=prev->next;
+            bool dup=false;
 
-                                                                                                                                }
+            while(aage!=NULL && aage->val==head->val){
+                aage=aage->next;
+                dup=true;
+            }
 
-                                                                                                                                        else if(prev->val==curr->val){
+            if(dup){
+                head=aage;
+                aage=aage->next;
+            }
 
-                                                                                                                                                  num=curr->val;
-                                                                                                                                                            curr=curr->next;
-                                                                                                                                                                      prev=prev->next;
-                                                                                                                                                                              }
+            else{
+                ListNode *t=new ListNode(head->val);
+                temp->next=t;
+                temp=t;
+                head=aage;
+                aage=aage->next;
+            }
+        }
 
-                                                                                                                                                                                      else{
+        if(head->val!=temp->val){
+            ListNode *t=new ListNode(head->val);
+            temp->next=t;
+            temp=t;
+        }
 
-                                                                                                                                                                                                curr=curr->next;
-                                                                                                                                                                                                          prev=prev->next;
-                                                                                                                                                                                                                    
-                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                  }
+        return dummy->next;
 
-                                                                                                                                                                                                                                        if(prev->val!=num){
-
-                                                                                                                                                                                                                                                ListNode *t=new ListNode(prev->val);
-
-                                                                                                                                                                                                                                                          temp->next=t;
-                                                                                                                                                                                                                                                                    temp=t;
-                                                                                                                                                                                                                                                                          }
-
-
-
-                                                                                                                                                                                                                                                                                return dummy->next;
-    } 
-    
+        
+    }
 };
