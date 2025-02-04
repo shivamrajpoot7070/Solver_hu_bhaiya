@@ -117,6 +117,10 @@ public:
             ans+=to_string(ct);
         }
 
+        else{
+            ans+=arr[arr.size()-1];
+        }
+
         for(int i=0;i<ans.length();i++){
 
             arr[i]=ans[i];
