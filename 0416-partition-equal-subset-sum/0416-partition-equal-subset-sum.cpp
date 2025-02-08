@@ -1,10 +1,16 @@
 class Solution {
 public:
 
-    bool func(vector<int>& arr,int ind,int tar,bool &flag,vector<vector<int>>&dp){
+    bool find(vector<int>& arr,int tar,int i,vector<vector<int>>&dp){
 
+        if(i>=arr.size() || tar<0){
+            return false;
+        }
 
-        if(ind>=arr.size() || tar<0){
+        if(i==arr.size()){
+            if(tar==0){
+                return true;
+            }
             return false;
         }
 
@@ -12,46 +18,37 @@ public:
             return true;
         }
 
-        if(dp[ind][tar]!=-1){
-            return dp[ind][tar];
+        if(dp[i][tar]!=-1){
+            return dp[i][tar];
         }
 
-        bool take=false;
-        if(tar>=arr[ind]){
-           take=func(arr,ind+1,tar-arr[ind],flag,dp);
-        }
-        bool ntake=func(arr,ind+1,tar,flag,dp);
+        bool take=find(arr,tar-arr[i],i+1,dp);
 
-        return dp[ind][tar]=take || ntake;
+        bool ntake=find(arr,tar,i+1,dp);
+
+
+        return dp[i][tar]=take || ntake;
+
 
     }
 
     bool canPartition(vector<int>& arr) {
 
 
-      int sum=0;
+        int n=arr.size();
 
-       for(int i=0;i<arr.size();i++){
-           sum+=arr[i];
-       }
+        int sum=accumulate(arr.begin(),arr.end(),0);
 
-       int n=arr.size();
+        int tar;
 
-        bool flag=false;
-        int ind=0;
-
-         if(sum%2!=0){
+        if(sum%2!=0){
             return false;
-         }
+        }
 
-         sum=sum/2;
+        tar=sum/2;
 
+        vector<vector<int>>dp(n+1,vector<int>(tar+1,-1));
 
-        vector<vector<int>>dp(n,vector<int>(sum+1,-1));
-        
-        return func(arr,ind,sum,flag,dp);
-
-        //return flag;
- 
+        return find(arr,tar,0,dp);
     }
 };
