@@ -1,48 +1,41 @@
 class Solution {
 public:
-    long long find(vector<int>&arr, int amount,int i,vector<vector<int>>&dp){
 
 
-        if(i>=arr.size()){
-
-            if(amount==0){
-                return 1;
-            }
-            return INT_MAX;  // agr out of range
+    int find(vector<int>&arr,int i,int amt,vector<vector<int>>&dp){
+ 
+        if(i>=arr.size() || amt<0){
+            return 1e9;
         }
 
-
-        if(amount==0){
-            return 1;   // mil gya to 1
+        if(amt==0){
+            return 0;
         }
 
-        if(amount<0){
-            return INT_MAX;
+        if(dp[i][amt]!=-1){
+            return dp[i][amt];
         }
 
+        int take=1+find(arr,i,amt-arr[i],dp);
 
-        if(dp[i][amount]!=-1){
-            return dp[i][amount];
-        }
+        int ntake=find(arr,i+1,amt,dp);
 
-        long long take=1+find(arr,amount-arr[i],i,dp);
-        long long nott=find(arr,amount,i+1,dp);
-
-        return dp[i][amount]=min(take,nott);
-
+        return dp[i][amt]=min(take,ntake);
 
     }
+    
+    int coinChange(vector<int>& arr, int amt) {
 
-    int coinChange(vector<int>&arr, int amount) {
-        int i=0;
         int n=arr.size();
+        vector<vector<int>>dp(n,vector<int>(amt+1,-1));
+        int i=0;
 
-        vector<vector<int>>dp(n,vector<int>(amount+1,-1));
-        long long val=find(arr,amount,i,dp);
-        if(val==INT_MAX){
+
+        if(find(arr,i,amt,dp)==1e9){
             return -1;
         }
-        return val-1;
-        
+
+        return find(arr,i,amt,dp);
+
     }
 };
