@@ -1,44 +1,35 @@
 class Solution {
 public:
+    int find(vector<vector<int>>&arr,int i,int j,vector<vector<int>>&dp){
 
-    int find(vector<vector<int>>& grid, int x, int y, vector<vector<int>>& dp) {
-
-        int n=grid.size();
-        int m=grid[0].size();
-
-        if(x==n-1 && y==m-1){
-            return grid[x][y];
+        if(i==arr.size()-1 && j==arr[0].size()-1){
+            return arr[i][j];
         }
 
-        if(x>=n || y>=m){
+        if(i>=arr.size() || j>=arr[0].size()){
             return 1e9;
         }
 
-        if(dp[x][y]!=-1){
-            return dp[x][y];
+        if(dp[i][j]!=-1){
+            return dp[i][j];
         }
 
+        int down=arr[i][j]+find(arr,i+1,j,dp);
+        int right=arr[i][j]+find(arr,i,j+1,dp);
 
-        int ryt=grid[x][y]+find(grid,x+1,y,dp);
-        int bot=grid[x][y]+find(grid,x,y+1,dp);
-
-        dp[x][y]=min(ryt,bot);
-
-        return dp[x][y];
+        dp[i][j]=min(down,right);
 
 
-
+        return dp[i][j];
 
     }
-    int minPathSum(vector<vector<int>>& grid) {
-        int n = grid.size();
-        int m = grid[0].size();
+    int minPathSum(vector<vector<int>>& arr) {
 
-        // Initialize dp table with -1 (indicating uncomputed states)
-        vector<vector<int>> dp(n, vector<int>(m, -1));
-
-        // Start from the top-left corner
-        return find(grid, 0, 0, dp);
-        
+        int m=arr.size();
+        int n=arr[0].size();
+        int i=0;
+        int j=0;
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        return find(arr,i,j,dp);
     }
 };
