@@ -1,41 +1,31 @@
 class Solution {
 public:
-    int lengthOfLongestSubstring(string arr) {
+    int lengthOfLongestSubstring(string str) {
 
-        unordered_map<int,int>mpp;
+        unordered_map<char,int>mpp;
 
-
-        // if(arr.length()==0){
-        //     return
-        // }
-
-        int len=0;
-
-
+        int maxi=-1;
         int i=0;
-        int n=arr.length();
-
         int j=0;
 
-        while(i<n && j<n){
+        while(i<str.length() && j<str.length()){
 
-            mpp[arr[j]]++;
+            mpp[str[j]]++;
 
-            while(mpp[arr[j]]>1){
-                mpp[arr[i]]--;
+            if(mpp[str[j]]>1){
 
-                if(mpp[arr[i]]==0){
-                    mpp.erase(arr[i]);
+                while(mpp[str[j]]>1){
+                    mpp[str[i]]--;
+                    if(mpp[str[i]]==0){
+                        mpp.erase(str[i]);
+                    }
+                    i++;
                 }
-                i++; 
             }
-
-            len=max(len,j-i+1);
+            maxi=max(maxi,j-i+1);
             j++;
-        } 
+        }
 
-
-        return len;
-        
+        return maxi;
     }
 };
