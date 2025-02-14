@@ -2,30 +2,26 @@ class Solution {
 public:
     int subarraySum(vector<int>&arr, int k) {
 
-      int n=arr.size();
-      int sum=0;
-      int i=0;
-      int j=0;
-      int ct=0;
 
-    map<int,int>mpp;
+        unordered_map<int,int>mpp;
 
-    mpp.insert({0,1});
+        mpp[0]=1;
 
-      for(int i=0;i<n;i++){
+        int ct=0;
+        int sum=0;
 
-        sum+=arr[i];
+        for(int i=0;i<arr.size();i++){
 
-        if(mpp.find(sum-k)!=mpp.end()){
-          ct+=mpp[sum-k];
+
+            sum+=arr[i];
+
+            if(mpp.find((sum-k))!=mpp.end()){
+                    ct+=mpp[sum-k];
+            }
+            mpp[sum]++;
         }
 
-        mpp[sum]++;
-      }
-
-      return ct;
-
-     
+        return ct;
         
     }
 };
