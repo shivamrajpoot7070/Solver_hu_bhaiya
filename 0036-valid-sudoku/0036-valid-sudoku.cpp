@@ -1,60 +1,30 @@
 class Solution {
 public:
 
-    bool rowcheck(vector<vector<char>>& arr,int i,int row_ele_ct,unordered_map<char,int>row){
-
-        for(int j=0;j<9;j++){
-            
-            if(arr[i][j]!='.'){
-                row[arr[i][j]]++;
-                row_ele_ct+=row[arr[i][j]];
-            }
-        }
-
-        if(row.size()!=row_ele_ct){
-            return false;
-        }
-
-        return true;
-    }
-
     
-    bool colcheck(vector<vector<char>>& arr,int j,int col_ele_ct,unordered_map<char,int>col){
-
-
-        for(int i=0;i<9;i++){
-            if(arr[i][j]!='.'){
-                col[arr[i][j]]++;
-                col_ele_ct+=col[arr[i][j]];
-            }
-        }
-
-        if(col.size()!=col_ele_ct){
-            return false;
-        }
-
-        return true;
-    }
-
 
     bool isValidSudoku(vector<vector<char>>& arr) {
-        
 
+        set<string>st;
         for(int i=0;i<arr.size();i++){
-            int row_ele_ct=0;
-            int col_ele_ct=0;
-            unordered_map<char,int>row;
-            unordered_map<char,int>col;
+            for(int j=0;j<arr.size();j++){
 
-            if(rowcheck(arr,i,row_ele_ct,row)==false){
-                    return false;
-            }
+                if(arr[i][j]!='.'){
+                    string row=string(1,arr[i][j])+"_ROW_"+to_string(i);
+                    string col=string(1,arr[i][j])+"_COLUMN_"+to_string(j);
+                    string box=string(1,arr[i][j])+"_BOX_"+to_string(i/3)+to_string(j/3);
 
-            for(int j=0;j<arr[i].size();j++){
-                
-                if(colcheck(arr,j,col_ele_ct,col)==false){
-                    return false;
+
+                    if(st.find(row)!=st.end() || st.find(col)!=st.end() || st.find(box)!=st.end()){
+                        return false;
+                    }
+
+
+                    st.insert(row);
+                    st.insert(col);
+                    st.insert(box);
                 }
+            
             }
         }
 
