@@ -1,29 +1,46 @@
 class Solution {
 public:
     int maxProduct(vector<int>&arr) {
+        
 
-        int maxi=INT_MIN;
+        int prod=1;
 
-        int prefix=1;
-        int n=arr.size();
-        int suffix=1;
+        int leftpro=1;
+        int rightpro=1;
+
+        int maxileft=*max_element(arr.begin(),arr.end());
+        int maxiright=*max_element(arr.begin(),arr.end());
 
         for(int i=0;i<arr.size();i++){
 
-            prefix=prefix*arr[i];
-            suffix=suffix*arr[n-i-1];
-
-            maxi=max(maxi,max(suffix,prefix));
-
-            if(prefix==0){
-                prefix=1;
+            if(arr[i]==0){
+                leftpro=1;
             }
-            if(suffix==0){
-                suffix=1;
+            else{
+            leftpro=leftpro*arr[i];
+            maxileft=max(maxileft,leftpro);
             }
         }
 
-        return maxi;
+        for(int i=arr.size()-1;i>=0;i--){
+
+            if(arr[i]==0){
+                rightpro=1;
+            }
+            else{
+            rightpro=rightpro*arr[i];
+            maxiright=max(maxiright,rightpro);
+            }
+        }
+
+
+        return max(maxiright,maxileft);
+
+
+
         
+
+
+
     }
 };
