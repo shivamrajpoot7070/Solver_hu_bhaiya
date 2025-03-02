@@ -12,33 +12,34 @@ class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
 
+        if(head==NULL){
+            return head;
+        }
+
+        if(head->next==NULL){
+            return head;
+        }
+
+        ListNode* odd=head;
+        ListNode* oddhead=odd;
+
+        ListNode* even=head->next;
+        ListNode* evenhead=even;
+
+        while(odd->next!=NULL && even->next!=NULL){
+
+            odd->next=even->next;
+
+            if(even->next){
+                odd=odd->next;
+            }
+
+            even->next=odd->next;
+            even=even->next;
+        }
+
+        odd->next=evenhead;
+        return oddhead;
         
-      if(head==NULL || head->next==NULL){
-        return head;
-      }
-
-      ListNode*odd=head;
-      ListNode*odhead=odd;
-
-      ListNode*even=head->next;
-      ListNode* evhead=even;
-
-
-      while(even && even->next){
-
-        odd->next=even->next;   // agr even node rhega tab na judega isly loop me even ya even ka next hai
-        odd=even->next;
-
-        even->next=odd->next;
-        even=odd->next;
-
-      }
-
-      odd->next=evhead;
-
-
-      return odhead;
-
-    
     }
 };
