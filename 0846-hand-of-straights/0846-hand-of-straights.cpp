@@ -1,14 +1,6 @@
 class Solution {
 public:
-    bool isNStraightHand(vector<int>&arr, int siz) {
-
-        if(arr.size()%siz!=0){
-            return false;
-        }
-
-        // long long maxi=*max_element(arr.begin(),arr.end());
-
-        // vector<long long>v(maxi+1,0);
+    bool isNStraightHand(vector<int>& arr, int group) {
 
         map<int,int>mpp;
 
@@ -16,52 +8,45 @@ public:
             mpp[arr[i]]++;
         }
 
-        int tot=arr.size()/siz;
-      
-        for(int i=0;i<tot;i++){
-            int ct=0;
-            bool fst=true;
-            int diff;
+        int ct=group;
+
+        while(mpp.size()>0){
+
+            int card=0;
+            int fir=-1;
+
             for(auto it:mpp){
 
-                if(fst){
-                    diff=it.first;
-                    mpp[it.first]--;
-                    fst=false;
-                    ct++;
+                int ele=it.first;
 
-                    if(mpp[it.first]==0){
-                        mpp.erase(it.first);
-                    }
+                if(fir==-1){
+                    fir=ele;
                 }
                 else{
-
-                    if((it.first-diff!=1)){
+                    if(ele-fir!=1){
                         return false;
                     }
                     else{
-                        ct++;
-                        diff=it.first;
-                        mpp[it.first]--;
-
-                         if(mpp[it.first]==0){
-                        mpp.erase(it.first);
+                        fir=ele;
                     }
-                    } 
                 }
+                
+                mpp[ele]--;
 
-                if(ct==siz){
+                if(mpp[ele]==0){
+                    mpp.erase(ele);
+                }
+                card++;
+                if(card==ct){
                     break;
                 }
             }
 
-            if(ct<siz){
+            if(card<ct){
                 return false;
             }
-
         }
 
         return true;
-        
     }
 };
