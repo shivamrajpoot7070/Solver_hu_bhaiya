@@ -1,28 +1,30 @@
 class Solution {
 public:
-    int minDeletion(vector<int>&arr) {
+    int minDeletion(vector<int>& arr) {
 
-        int newidx=0;
-        int len=arr.size();
+
+        int del=0;
 
         for(int i=0;i<arr.size()-1;i++){
 
-            int j=i-newidx;
+            int newidx=i-del;
 
-            if(j%2==0){
+            if(newidx%2==0){
+
                 if(arr[i]==arr[i+1]){
-                    newidx++;
+                    del++;
                 }
             }
         }
 
-        if((len-newidx)%2!=0){
-            newidx++;
+        int newlen=arr.size()-del;
 
-            return newidx;
+        if(newlen%2!=0){
+            del++;
+            return del;
         }
 
-        return newidx;
+        return del;
         
     }
 };
