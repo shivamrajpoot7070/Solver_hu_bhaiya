@@ -1,29 +1,40 @@
 class Solution {
 public:
-    long long countBadPairs(vector<int>&arr) {
+    long long countBadPairs(vector<int>& arr) {
 
-            long long ct=0;
-            unordered_map<int,int>mpp;
+        unordered_map<long long,long long>mpp;
 
-            mpp[arr[0]-0]++;
+        for(int i=0;i<arr.size();i++){
+            mpp[arr[i]-i]++;
+        }
 
-            for(int j=1;j<arr.size();j++){
 
-                int fi=arr[j]-j;
+        long long ct=0;
+        int n=arr.size();
 
-                
+        for(int i=0;i<arr.size();i++){
 
-                    for(auto it:mpp){
-                        if(it.first!=fi){
-                            ct+=it.second;
-                        }
-                    }
-            
-                mpp[fi]++;
+            long long diff=arr[i]-i;
+
+            mpp[diff]--;
+
+            if(mpp[diff]==0){
+                mpp.erase(diff);
             }
 
-            return ct;
+
+            if(mpp.find(diff)==mpp.end()){
+                ct+=(n-i)-1;
+            }
+            else{
+
+                long long extra=mpp[diff];
+                ct+=((n-i)-1)-extra;
+            }
+        }
+
+        return ct;
+        
 
     }
 };
-
