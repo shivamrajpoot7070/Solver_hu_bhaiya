@@ -1,30 +1,25 @@
 class Solution {
 public:
-    bool isAnagram(string str1, string str2) {
+    bool isAnagram(string str, string arr) {
+
+        vector<int>hash1(26,0);
+        vector<int>hash2(26,0);
 
 
-      int len=str1.length();
-    int len1=str2.length();
-    int hash[26]={0};
+        for(int i=0;i<str.length();i++){
+            hash1[str[i]-'a']++;
+        }
 
-    int hash1[26]={0};
+        for(int i=0;i<arr.length();i++){
+            hash2[arr[i]-'a']++;
+        }
 
 
-    for(int i=0;i<len;i++){
-        hash[str1[i]-'a']++;
-    }
-
-    for(int i=0;i<len1;i++){
-        hash1[str2[i]-'a']++;
-    }
-
-    for(int i=0;i<26;i++){
-        if(hash[i]!=hash1[i]){
+        if(hash1!=hash2){
             return false;
         }
-    }
 
-    return true;
+        return true;
         
     }
 };
