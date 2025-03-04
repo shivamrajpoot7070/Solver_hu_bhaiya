@@ -48,11 +48,11 @@ public:
 
             // Search for the closest unmarked index j < i with s[j] == mirror
             
-            if(mpp.find(mirror)!=mpp.end()){
+            if(mpp.find(mirror)!=mpp.end() && mpp[mirror].size()>0){
 
                 int lastpos=mpp[mirror].back();
                 mpp[mirror].pop_back(); /// mark it used;
-                mpp.erase(mirror);
+    
                 score+=i-lastpos;
             }
             else{
