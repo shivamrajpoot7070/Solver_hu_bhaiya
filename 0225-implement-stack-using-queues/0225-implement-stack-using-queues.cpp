@@ -2,6 +2,7 @@ class MyStack {
 public:
     stack<int>st;
     MyStack() {
+        
     }
     
     void push(int x) {
@@ -9,35 +10,27 @@ public:
     }
     
     int pop() {
-
         
-        int del=-1;
-
-        if(st.size()>0){
-            del=st.top();
+        
+            int x=st.top();
             st.pop();
-        }
-
-        return del;
+           
         
+
+        return x;
     }
     
     int top() {
-        if(st.size()>0){
-            return st.top();
-        }
 
-        return -1;
+        return st.top();
+        
     }
     
     bool empty() {
-
-        if(st.size()==0){
-            return true;
-        }
+        
+        if(st.size()==0) return true;
 
         return false;
-        
     }
 };
 
