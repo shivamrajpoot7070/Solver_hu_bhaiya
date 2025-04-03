@@ -21,7 +21,6 @@ public:
 
         for(int i=0;i<n-1;i++){
             long long val=(long long)(leftmaxi[i]-arr[i])*rightmaxi[i];
-
             maxi=max(maxi,val);
         }
 
