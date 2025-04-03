@@ -18,20 +18,17 @@ public:
 
         if(root==NULL) return 0;
 
-        return 1+max(height(root->left),height(root->right));
+        int left=height(root->left);
+        int right=height(root->right);
+
+        maxi=max(maxi,left+right);
+
+        return 1+max(left,right);
 
     }
     int diameterOfBinaryTree(TreeNode* root) {
 
-        if(root==NULL) return 0;
-
-        int lef=height(root->left);
-        int rig=height(root->right);
-
-        maxi=max(maxi,lef+rig);
-
-       diameterOfBinaryTree(root->left);
-       diameterOfBinaryTree(root->right);
+        int x=height(root);
 
         return maxi;
     }
