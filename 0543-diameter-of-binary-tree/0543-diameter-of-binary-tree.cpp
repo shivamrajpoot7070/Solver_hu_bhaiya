@@ -12,40 +12,27 @@
 class Solution {
 public:
 
-    int maxi=INT_MIN;
+    int maxi=0;
 
+    int height(TreeNode* root){
 
-    int ht(TreeNode* root){
+        if(root==NULL) return 0;
 
-        if(root==NULL){
-            return 0;
-        }
+        return 1+max(height(root->left),height(root->right));
 
-        int left=ht(root->left);
-        int right=ht(root->right);
-
-        return 1+max(left,right);
     }
-
-
     int diameterOfBinaryTree(TreeNode* root) {
 
+        if(root==NULL) return 0;
 
-        if(root==NULL){
-            return 0;
-        }
+        int lef=height(root->left);
+        int rig=height(root->right);
 
-
-      int left=ht(root->left);
-      int ryt=ht(root->right);
-
-      maxi=max(maxi,left+ryt);
+        maxi=max(maxi,lef+rig);
 
        diameterOfBinaryTree(root->left);
        diameterOfBinaryTree(root->right);
 
-       return maxi;
-
-        
+        return maxi;
     }
 };
