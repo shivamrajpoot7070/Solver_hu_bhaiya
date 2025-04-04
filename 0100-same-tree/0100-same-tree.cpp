@@ -10,48 +10,35 @@
  * };
  */
 class Solution {
-public: 
-
-    void same(TreeNode* p, TreeNode* q,bool &flag){
-
+public:
+    bool check(TreeNode* p,TreeNode* q){
 
         if(p==NULL && q==NULL){
-            return;
+            return true;
         }
 
+        if((p!=NULL && q==NULL) || (p==NULL && q!=NULL)) return false;
 
-        if(p==NULL && q!=NULL){
-            flag=false;
-            return;
-        }
+        if(p->val != q->val) return false;
 
-        if(p!=NULL && q==NULL){
-            flag=false;
-            return;
-        }
+       // if(p->val==q->val) return true;
 
+        bool lefty=check(p->left,q->left);
+        bool righty=check(p->right,q->right);
 
-        if(p->val!=q->val){
-            flag=false;
-            return;
-        }
-
-
-        same(p->left,q->left,flag);
-        same(p->right,q->right,flag);
-
+        return lefty && righty;
 
     }
-
-
     bool isSameTree(TreeNode* p, TreeNode* q) {
 
-        bool flag=true;
+        if(p==NULL && q==NULL) return true;
 
-        same(p,q,flag);
+        if(p==NULL && q!=NULL) return false;
 
-        return flag;
+        if(q==NULL && p!=NULL) return false;
 
+        if(p->val!=q->val) return false;
         
+        return check(p->left,q->left) && check(p->right,q->right);
     }
 };
