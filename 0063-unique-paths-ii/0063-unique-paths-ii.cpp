@@ -1,53 +1,36 @@
 class Solution {
 public:
 
-    int find(int down,int right,int n,int m,vector<vector<int>>& obst,vector<vector<int>>& dp){
+    int count(vector<vector<int>>& arr,int i,int j,vector<vector<int>>& dp){
 
-        if(down>=n || right>=m){
-            return 0;
-        }
-        
-        if(down<n && right<m && obst[down][right]==1){
+        if(i>=arr.size() || j>=arr[i].size()){
             return 0;
         }
 
-        if(down==n-1 && right==m-1 && obst[down][right]!=1){
-            return 1;
+        if(arr[i][j]==1) return 0;
+
+
+
+        if(i==arr.size()-1 && j==arr[0].size()-1){
+            if(arr[i][j]==0) return 1;
+            return 0;
         }
 
-        if(dp[down][right]!=-1){
-            return dp[down][right];
-        }
+        if(dp[i][j]!=-1) return dp[i][j];
 
-        
-        
+        int down=count(arr,i+1,j,dp);
+        int right=count(arr,i,j+1,dp);
 
-            int dow=find(down+1,right,n,m,obst,dp);
-            int ryt=find(down,right+1,n,m,obst,dp);
-
-            int ct=dow+ryt;
-            
-            return dp[down][right]=ct;
-        
-
-        //return dp[down][right];
-
+        return dp[i][j]=down+right;
     }
+    int uniquePathsWithObstacles(vector<vector<int>>& arr) {
 
 
-    int uniquePathsWithObstacles(vector<vector<int>>& obst) {
+        int n=arr.size();
+        int m=arr[0].size();
 
-        int n=obst.size();
-        int m=obst[0].size();
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
 
-        int down=0;
-        int right=0;
-
-        vector<vector<int>>dp(m,vector<int>(n,-1));
-
-        return find(down,right,n,m,obst,dp);
-
-
-        
+        return count(arr,0,0,dp);
     }
 };
