@@ -1,38 +1,53 @@
 class Solution {
 public:
 
-const int mod=1e9+7;
-int powerSum(int i, int sum,int n, int x,vector<vector<int>>&dp) {
-    // Base case: If the remaining sum is negative or the current power exceeds x, no valid combinations exist
+int mod = 1e9 + 7;
+vector<vector<int>>dp;
 
-    if (sum == n) {
-        return 1;
+
+    long find(int ind,long n,int x){
+
+        if(n==0){
+            return 1;
+        }
+
+        if(n<0 || ind>n){
+            return 0;
+        }
+
+        if(dp[ind][n]!=-1){
+            return dp[ind][n];
+        }
+
+        // long p=1;
+
+        // for(int i=0;i<x;i++){
+        //     p=p*ind;
+        // }
+
+        long  p=pow(ind,x);
+
+        long take=find(ind+1,n-p,x);
+
+        long ntake=find(ind+1,n,x);
+
+
+        return dp[ind][n]=((take+ntake)%mod);
+
     }
 
-    if (i>n  || sum > n) {
-        return 0;
-    }
-
-    if(dp[i][sum]!=-1){
-        return dp[i][sum];
-    }
-
-    // Base case: If the remaining sum is exactly 0, we've found a valid combinatio
-    // Recursive cases: Include or exclude the current number
-    long long p = pow(i, x);
-    int take = powerSum(i + 1, sum+p,n, x,dp)%mod; // Include the current number
-    int ntake = powerSum(i + 1, sum,n, x,dp)%mod;   // Exclude the current number
-
-    // Total combinations
-    return dp[i][sum]=take + ntake;
-}
     int numberOfWays(int n, int x) {
 
-        int sum=0;
 
-        vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
-       
-        return powerSum(1,sum,n,x,dp);
+        // int currsum=0;
+         int currnum=1;
+
+        dp.resize(n + 1, vector<int>(n + 1, -1));
+
+
+        return find(currnum,n,x);
+
+
         
     }
 };
