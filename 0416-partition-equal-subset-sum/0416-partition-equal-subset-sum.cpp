@@ -1,54 +1,36 @@
 class Solution {
 public:
 
-    bool find(vector<int>& arr,int tar,int i,vector<vector<int>>&dp){
+    bool check(int half,int i,vector<int>&arr,vector<vector<int>>&dp){
 
-        if(i>=arr.size() || tar<0){
+        if(i>=arr.size() || half<0){
             return false;
         }
 
-        if(i==arr.size()){
-            if(tar==0){
-                return true;
-            }
-            return false;
-        }
+        if(half==0) return true;
 
-        if(tar==0){
-            return true;
-        }
+        if(dp[i][half]!=-1) return dp[i][half];
 
-        if(dp[i][tar]!=-1){
-            return dp[i][tar];
-        }
+        int take=check(half-arr[i],i+1,arr,dp);
+        int ntake=check(half,i+1,arr,dp);
 
-        bool take=find(arr,tar-arr[i],i+1,dp);
-
-        bool ntake=find(arr,tar,i+1,dp);
-
-
-        return dp[i][tar]=take || ntake;
-
-
+        return dp[i][half]=take || ntake;
     }
 
-    bool canPartition(vector<int>& arr) {
 
+    bool canPartition(vector<int>& arr) {
+        
+        int sum=accumulate(arr.begin(),arr.end(),0);
+
+        if(sum%2!=0) return false;
 
         int n=arr.size();
 
-        int sum=accumulate(arr.begin(),arr.end(),0);
+        //vector<vector<int>>dp(n+1,vector<int>(sum+1),-1);
 
-        int tar;
-
-        if(sum%2!=0){
-            return false;
-        }
-
-        tar=sum/2;
-
-        vector<vector<int>>dp(n+1,vector<int>(tar+1,-1));
-
-        return find(arr,tar,0,dp);
+        vector<vector<int>>dp(n+1,vector<int>(sum+1,-1));
+        int half=sum/2;
+        int i=0;
+        return check(half,i,arr,dp);
     }
 };
