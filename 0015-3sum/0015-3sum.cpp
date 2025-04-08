@@ -1,38 +1,54 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& arr) {
-
-        vector<vector<int>> ans;
-        int n=arr.size();
-    sort(arr.begin(), arr.end());
-    for (int i = 0; i < n; i++) {
-        //remove duplicates:
-        if (i != 0 && arr[i] == arr[i - 1]) continue;
-
-        //moving 2 pointers:
-        int j = i + 1;
-        int k = n - 1;
-        while (j < k) {
-            int sum = arr[i] + arr[j] + arr[k];
-            if (sum < 0) {
-                j++;
-            }
-            else if (sum > 0) {
-                k--;
-            }
-            else {
-                vector<int> temp = {arr[i], arr[j], arr[k]};
-                ans.push_back(temp);
-                j++;
-                k--;
-                //skip the duplicates:
-
-                while (j < k && arr[j] == arr[j - 1]) j++;
-                while (j < k && arr[k] == arr[k + 1]) k--;
-            }
-        }
-    }
-    return ans;
         
+        sort(arr.begin(),arr.end());
+
+        int i=0;
+        int j=0;
+        int k=arr.size()-1;
+
+        vector<vector<int>>ans;
+
+        set<vector<int>>st;
+
+        while(i<arr.size()-2){
+
+             int j=i+1;
+
+             int k=arr.size()-1;
+
+              while(j<k){
+
+              int sum=arr[i]+arr[j]+arr[k];
+
+                if(sum>0){
+                    k--;
+                }
+                else if(sum<0){
+                    j++;
+                }
+                else{
+                    vector<int>temp;
+                    temp.push_back(arr[i]);
+                    temp.push_back(arr[j]);
+                    temp.push_back(arr[k]);
+
+                    st.insert(temp);
+                    j++;
+                    k--;
+                    while(j<k && arr[j]==arr[j-1]) j++;
+                    while(j<k && arr[k]==arr[k+1]) k--;
+                }
+            }
+            ///while(i+1<arr.size()-2 && arr[i]==arr[i+1]) i++;
+            i++;
+        }
+
+        for(auto it:st){
+            ans.push_back(it);
+        }
+
+        return ans;
     }
 };
