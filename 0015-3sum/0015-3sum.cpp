@@ -14,6 +14,8 @@ public:
 
         while(i<arr.size()-2){
 
+            while(i!=0 && i<arr.size()-2 && arr[i]==arr[i-1]) i++;
+
              int j=i+1;
 
              int k=arr.size()-1;
@@ -34,7 +36,7 @@ public:
                     temp.push_back(arr[j]);
                     temp.push_back(arr[k]);
 
-                    st.insert(temp);
+                    ans.push_back(temp);
                     j++;
                     k--;
                     while(j<k && arr[j]==arr[j-1]) j++;
@@ -45,9 +47,9 @@ public:
             i++;
         }
 
-        for(auto it:st){
-            ans.push_back(it);
-        }
+        // for(auto it:st){
+        //     ans.push_back(it);
+        // }
 
         return ans;
     }
