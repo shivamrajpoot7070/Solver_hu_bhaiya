@@ -8,13 +8,12 @@ public:
         int j=0;
         int k=arr.size()-1;
 
-        vector<vector<int>>ans;
+       //vector<vector<int>>ans;
 
         set<vector<int>>st;
 
         while(i<arr.size()-2){
-
-            while(i!=0 && i<arr.size()-2 && arr[i]==arr[i-1]) i++;
+           // while(i!=0 && i<arr.size()-2 && arr[i]==arr[i-1]) i++;
 
              int j=i+1;
 
@@ -36,16 +35,18 @@ public:
                     temp.push_back(arr[j]);
                     temp.push_back(arr[k]);
 
-                    ans.push_back(temp);
+                    st.insert(temp);
                     j++;
                     k--;
-                    while(j<k && arr[j]==arr[j-1]) j++;
-                    while(j<k && arr[k]==arr[k+1]) k--;
+                    // while(j<k && arr[j]==arr[j-1]) j++;
+                    // while(j<k && arr[k]==arr[k+1]) k--;
                 }
             }
             ///while(i+1<arr.size()-2 && arr[i]==arr[i+1]) i++;
             i++;
         }
+
+        vector<vector<int>>ans(st.begin(),st.end());
 
         // for(auto it:st){
         //     ans.push_back(it);
