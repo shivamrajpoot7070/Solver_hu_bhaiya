@@ -1,49 +1,62 @@
 class Solution {
 public:
-    int minimumOperations(vector<int>&arr) {
-        
-        unordered_map<int,int>mpp;
-        for(int x:arr){
-            mpp[x]++;
+    int minimumOperations(vector<int>& arr) {
+
+        unordered_map <int,int>mpp;
+
+
+        for(int i=0;i<arr.size();i++){
+            mpp[arr[i]]++;
         }
+
+
+        if(arr.size()<=3){
+
+            if(mpp.size()!=arr.size()){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+            
+        }
+
+        int n=arr.size();
 
         int i=0;
-
+        int j=n-1;
         int ct=0;
 
-        while(i<arr.size()){
+        while(i<n && i!=j){
 
-            bool dup=false;
+            if(mpp.size()<j-i+1){
 
-            for(auto it:mpp){
-                if(it.second>1){
-                    dup=true;
-                    break;
+                for(int x=0;x<3;x++){
+
+                    if(i<n){
+                        mpp[arr[i]]--;
+
+                    if(mpp[arr[i]]==0){
+                        mpp.erase(arr[i]);
+                    }
+                    i++;
+
+                    }
                 }
+                ct++;
             }
-            int k=3;
 
-            if(dup==false){
+            else{
+
                 return ct;
             }
 
-            ct++;
-
-            while(k-- && i<arr.size()){
-                mpp[arr[i]]--;
-
-                if(mpp[arr[i]]==0){
-                    mpp.erase(arr[i]);
-                }
-                i++;
-            }
-
-            if(i>=arr.size()){
-                return ct;
-            }
         }
 
-        return ct;
 
+
+
+        return ct;
+        
     }
 };
