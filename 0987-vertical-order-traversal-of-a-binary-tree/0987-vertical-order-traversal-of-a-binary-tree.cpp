@@ -13,45 +13,51 @@ class Solution {
 public:
     typedef pair<TreeNode*,int>p;
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        
-        queue<p>q;
-
-        vector<vector<int>>ans;
-
-        q.push({root,1});
 
         map<int,vector<int>>mpp;
 
-        int level=0;
+        queue<p>q;
+
+        q.push({root,0});
 
         while(q.size()>0){
 
             int n=q.size();
+            map<int,vector<int>>temp;
 
             while(n--){
 
-                TreeNode* temp=q.front().first;
+                TreeNode* curr=q.front().first;
                 int index=q.front().second;
 
-                mpp[index].push_back(temp->val);
-
-                if(temp->left){
-                    q.push({temp->left,index-1});
+                temp[index].push_back(curr->val);
+                if(curr->left){
+                    q.push({curr->left,index-1});
                 }
-                if(temp->right){
-                    q.push({temp->right,index+1});
+
+                if(curr->right){
+                    q.push({curr->right,index+1});
                 }
 
                 q.pop();
             }
-            level++;
+
+            for(auto &[ind,vec]:temp){
+
+                sort(vec.begin(),vec.end());
+                for(int x:vec){
+                    mpp[ind].push_back(x);
+                }
+            }
         }
 
-       for (auto& [idx, vec] :mpp) {
-                sort(vec.begin(), vec.end());
-                ans.push_back(vec);
+        vector<vector<int>>ans;
+
+        for(auto &[ind,vec]:mpp){
+            ans.push_back(vec);
         }
-    
+
         return ans;
+
     }
 };
