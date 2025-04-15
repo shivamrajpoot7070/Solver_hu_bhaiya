@@ -1,34 +1,30 @@
 class Solution {
 public:
-    int maximumUnits(vector<vector<int>>& box, int siz) {
+    typedef pair<int,int>p;
+    int maximumUnits(vector<vector<int>>&arr, int siz) {
+        vector<p>v;
 
-        vector<pair<int,int>>v;
-
-        for(int i=0;i<box.size();i++){
-
-            int num=box[i][0];
-            int unit=box[i][1];
-            v.push_back({unit,num});
+        for(int i=0;i<arr.size();i++){
+            v.push_back({arr[i][1],arr[i][0]});
         }
 
-        sort(v.begin(),v.end());
+        sort(v.begin(),v.end(),greater<p>());
 
-        int ans=0;
-        for(int i=v.size()-1;i>=0;i--){
+        int total=0;
+
+        for(int i=0;i<v.size();i++){
 
             if(v[i].second<=siz){
-                ans+=v[i].first*v[i].second;
+                total+=v[i].first*v[i].second;
                 siz-=v[i].second;
             }
             else{
-                ans+=v[i].first*siz;
-                break;
+                total+=v[i].first*siz;
+                return total;
             }
         }
 
-        return ans;
-
-
+        return total;
         
     }
 };
