@@ -11,39 +11,37 @@
  */
 class Solution {
 public:
+    void find(TreeNode* root,int sum,vector<int>&temp,vector<vector<int>>&ans,int tar){
 
-
-    void validsum(TreeNode* root,int sum,vector<int>v,vector<vector<int>>&ans){
-
-      // if you want to pop back you can v as pass as refernce
-
-      if(root==NULL){
-        return;
-      }
-
-      v.push_back(root->val);
-
-      if(root->left==NULL && root->right==NULL){
-
-        if(sum==root->val){
-          ans.push_back(v);
-
+        if(root==NULL){
+            return;
         }
-      }
-      
-      validsum(root->left,sum-root->val,v,ans);
-      validsum(root->right,sum-root->val,v,ans);
-      }
-    
 
+        if(root->left==NULL && root->right==NULL){
+            sum+=root->val;
+            temp.push_back(root->val);
+            if(sum==tar){
+                ans.push_back(temp);
+            }
+            temp.pop_back();
+            return;
+        }
 
+        sum+=root->val;
+        temp.push_back(root->val);
+        find(root->left,sum,temp,ans,tar);
+        find(root->right,sum,temp,ans,tar);
 
-    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+        temp.pop_back();
+
+    }
+    vector<vector<int>> pathSum(TreeNode* root, int tar) {
         
-
         vector<vector<int>>ans;
-        vector<int>v;
-        validsum(root,targetSum,v,ans);
+        vector<int>temp;
+        int sum=0;
+
+        find(root,sum,temp,ans,tar);
 
         return ans;
     }
