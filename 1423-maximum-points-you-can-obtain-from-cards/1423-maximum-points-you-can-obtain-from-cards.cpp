@@ -1,29 +1,24 @@
 class Solution {
 public:
-    int maxScore(vector<int>& arr, int k) {
-
-        int lsum=0;
-        int n=arr.size();
-
-        for(int i=0;i<k;i++){
-            lsum+=arr[i];
-        }
-
-        int rsum=0;
-        int i=arr.size()-1;
-        int x=k;
-        while(x--){
-            rsum+=arr[i];
-            i--;
-        }
-
-        int fstk_1=(lsum-arr[k-1])+arr[n-1];
-        int lastk_1=rsum-arr[n-k]+arr[0];
-
-        int combo=max(fstk_1,lastk_1);
-        int lrmax=max(lsum,rsum);
+    int maxScore(vector<int>&arr, int k) {
         
-        return max(lrmax,combo);
+        int ksum=0;
+        
+        for(int i=0;i<k;i++){
+            ksum+=arr[i];
+        }
+        int maxi=ksum;
+        int i=k-1;
+        int j=arr.size()-1;
 
+        while(i>=0){
+            ksum-=arr[i];
+            ksum+=arr[j];
+            maxi=max(maxi,ksum);
+            i--;
+            j--;
+        }
+
+        return maxi;
     }
 };
