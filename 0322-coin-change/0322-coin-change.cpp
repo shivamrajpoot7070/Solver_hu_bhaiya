@@ -1,41 +1,30 @@
 class Solution {
 public:
+    long long find(int i,int amt,vector<int>&arr){
 
-
-    int find(vector<int>&arr,int i,int amt,vector<vector<int>>&dp){
- 
-        if(i>=arr.size() || amt<0){
-            return 1e9;
+        if(amt<0 || i>=arr.size()){
+            return INT_MAX;
         }
 
         if(amt==0){
             return 0;
         }
 
-        if(dp[i][amt]!=-1){
-            return dp[i][amt];
-        }
+        long long take=1+find(i,amt-arr[i],arr);
 
-        int take=1+find(arr,i,amt-arr[i],dp);
+        long long ntake=find(i+1,amt,arr);
 
-        int ntake=find(arr,i+1,amt,dp);
-
-        return dp[i][amt]=min(take,ntake);
+        return min(take,ntake);
 
     }
-    
-    int coinChange(vector<int>& arr, int amt) {
-
-        int n=arr.size();
-        vector<vector<int>>dp(n,vector<int>(amt+1,-1));
+    int coinChange(vector<int>&arr, int amount) {
         int i=0;
 
-
-        if(find(arr,i,amt,dp)==1e9){
+        if(find(i,amount,arr)==INT_MAX){
             return -1;
         }
-
-        return find(arr,i,amt,dp);
-
+        else{
+            return find(i,amount,arr);
+        }
     }
 };
