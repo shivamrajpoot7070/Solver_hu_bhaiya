@@ -11,31 +11,26 @@
  */
 class Solution {
 public:
+    bool check(TreeNode* lefty,TreeNode* righty){
 
-    bool find(TreeNode* l,TreeNode* r){
-
-        if(l==NULL && r==NULL){
+        if(lefty==NULL && righty==NULL){
             return true;
         }
 
-        if(l==NULL || r==NULL){
+        if(lefty==NULL || righty==NULL){
             return false;
         }
 
-        if(l->val!=r->val){
+        if(lefty->val!=righty->val){
             return false;
         }
-    
-        bool lr=find(l->left,r->right);
-        bool rl=find(l->right,r->left);
 
-        return lr && rl;
+        return check(lefty->left,righty->right) && check(lefty->right,righty->left);
 
     }
 
     bool isSymmetric(TreeNode* root) {
-
-        return find(root->left,root->right);
-        
+         
+         return check(root->left,root->right);
     }
 };
