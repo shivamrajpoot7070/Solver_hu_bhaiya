@@ -1,34 +1,28 @@
 class Solution {
 public:
-    int countSubarrays(vector<int>& arr) {
-
+    int countSubarrays(vector<int>&arr) {
+        
+        int n;
+        int i=0;
+        int j=0;
         int ct=0;
-        int n=arr.size();
 
+        while(i<arr.size() && j<arr.size()){
 
-        for(int i=0;i<=n-3;i++){
-
-            int s=0;
-            s=arr[i]+arr[i+2];
-
-            if(s==0){
-
-                if(arr[i+1]==0){
-                    ct++;
+            if(j-i+1==3){
+                if(abs(arr[i]+arr[j])){
+                    
+                    if(arr[i+1]%2==0){
+                        if(arr[i]+arr[j]==arr[i+1]/2){
+                            ct++;
+                        }
+                    }
                 }
-                
+                i++;
             }
-
-            else{
-                if(s==arr[i+1]/2){
-                    ct++;
-                }
-            }
-
-            
+            j++;
         }
 
         return ct;
-        
     }
 };
