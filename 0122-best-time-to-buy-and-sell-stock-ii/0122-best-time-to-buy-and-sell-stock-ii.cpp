@@ -1,33 +1,28 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& arr) {
-        
-        int maxi=0;
-        int inc=arr[0];
+    int maxProfit(vector<int>&arr) {
 
-        int sum=0;
-        int i=0;
-        int j=0;
+        long long maxi=0;
 
-        int n=arr.size();
+        long long ans=0;
 
-        while(i<n && j<n){
+        int prevstock=arr[0];
 
-            if(arr[j]>=inc){
-                maxi=max(maxi,arr[j]-arr[i]);
-                inc=arr[j];
-                j++;
+        for(int i=1;i<arr.size();i++){
+            if(arr[i]-prevstock>=maxi){
+                long long diff=arr[i]-prevstock;
+                maxi=max(maxi,diff);
             }
-
             else{
-                sum+=maxi;
+                ans+=maxi;
+                prevstock=arr[i];
                 maxi=0;
-                inc=arr[j];
-                i=j;
             }
         }
 
-        return sum+maxi;
+        ans+=maxi;
 
+        return ans;
+        
     }
 };
