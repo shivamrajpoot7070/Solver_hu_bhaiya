@@ -28,7 +28,10 @@ public:
 
 
         int swap=0;
-        int minswap=INT_MAX;
+        int minswaptop=INT_MAX;
+
+        int minswapbot=INT_MAX;
+
         for(int i=0;i<count.size();i++){
 
             int ele=count[i];
@@ -47,9 +50,32 @@ public:
                 }
             }
 
-            minswap=min(minswap,swap);
+            minswaptop=min(minswaptop,swap);
         }
 
-        return minswap;
+        swap=0;
+
+         for(int i=0;i<count.size();i++){
+
+            int ele=count[i];
+
+            for(int i=0;i<n;i++){
+
+                if(bottom[i]!=ele){
+
+                    if(top[i]==ele){
+                        swap++;
+                    }
+                    else{
+                        swap=0;
+                        break;
+                    }
+                }
+            }
+
+            minswapbot=min(minswapbot,swap);
+        }
+
+        return min(minswaptop,minswapbot);
     }
 };
