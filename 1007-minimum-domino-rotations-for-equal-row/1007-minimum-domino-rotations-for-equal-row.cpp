@@ -17,24 +17,24 @@ public:
 
 
         vector<int>count;
+        int ele;
 
         for(auto it:mpp){
             if(it.second==n){
-                count.push_back(it.first);
+                ele=it.first;
             }
         }
 
-        if(count.size()==0) return -1;
+        //if(count.size()==0) return -1;
 
 
         int swap=0;
         int minswaptop=INT_MAX;
-
         int minswapbot=INT_MAX;
 
-        for(int i=0;i<count.size();i++){
+        // for(int i=0;i<count.size();i++){
 
-            int ele=count[i];
+            // ele=count[i];
 
             for(int i=0;i<n;i++){
 
@@ -51,13 +51,12 @@ public:
             }
 
             minswaptop=min(minswaptop,swap);
-        }
 
         swap=0;
 
-         for(int i=0;i<count.size();i++){
+        //  for(int i=0;i<count.size();i++){
 
-            int ele=count[i];
+        //     int ele=count[i];
 
             for(int i=0;i<n;i++){
 
@@ -74,8 +73,16 @@ public:
             }
 
             minswapbot=min(minswapbot,swap);
+
+        
+
+        
+
+        if(min(minswaptop,minswapbot)==0) return -1;
+
+        else{
+            return min(minswaptop,minswapbot);
         }
 
-        return min(minswaptop,minswapbot);
     }
 };
