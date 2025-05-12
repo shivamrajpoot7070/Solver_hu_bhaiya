@@ -1,36 +1,33 @@
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>&arr) {
+    vector<vector<int>> merge(vector<vector<int>>& arr) {
 
-       
-       sort(arr.begin(), arr.end());
+        sort(arr.begin(),arr.end());
 
-        vector<vector<int>> ans;
+        int maxi=arr[0][1];
+        int mini=arr[0][0];
 
-        // Initialize start and end with the first interval
-        int st = arr[0][0];
-        int ed = arr[0][1];
+        cout<<maxi<<mini;
 
-        for (int i = 1; i < arr.size(); i++) {
-            int cs = arr[i][0]; // Current interval's start
-            int cd = arr[i][1]; // Current interval's end
+        vector<vector<int>>ans;
 
-            if (cs <= ed) {
-                // Overlapping intervals: update the end to the maximum
-                ed = max(ed, cd);
+        for(int i=1;i<arr.size();i++){
+
+            int currst=arr[i][0];
+            int curred=arr[i][1];
+
+            if(currst<=maxi){
+                maxi=max(maxi,curred);
+                mini=min(mini,currst);
             }
-             else {
-                // Non-overlapping interval: push the previous interval and reset
-                ans.push_back({st, ed});
-                st = cs;
-                ed = cd;
+            else{
+                ans.push_back({mini,maxi});
+                mini=arr[i][0];
+                maxi=arr[i][1];
             }
         }
 
-        // Push the last interval
-        ans.push_back({st, ed});
-
+        ans.push_back({mini,maxi});
         return ans;
-        
     }
 };
