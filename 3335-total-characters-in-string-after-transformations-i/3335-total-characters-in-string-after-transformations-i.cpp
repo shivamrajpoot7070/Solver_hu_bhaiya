@@ -1,46 +1,48 @@
 class Solution {
 public:
+
     int lengthAfterTransformations(string str, int t) {
 
-        vector<int>hash(26,0);
+        const int MOD = 1e9 + 7;
+        
+        vector<int>org(26,0);
+        vector<int>temp(26,0);
+
 
         for(int i=0;i<str.length();i++){
-            hash[str[i]-'a']++;
+            org[str[i]-'a']++;
         }
-
-        const int mod=1e9+7;
 
         while(t--){
-
-            vector<int>temp(26,0);
-
+            temp=org;
             for(int i=0;i<26;i++){
-
-                if(i!=25 && hash[i]>0){
-                    temp[i+1]+=hash[i]%mod;
+                if(i==25){
+                    if(temp[i]!=0){
+                        int ct=temp[i];
+                        (org[0]+=ct)%MOD;
+                        (org[1]+=ct)%MOD;
+                        (org[i]-=ct)%MOD;
+                    }
                 }
-
-                else if(i==25 && hash[i]>0){
-                    temp[0]+=hash[i]%mod;
-                    temp[1]+=hash[i]%mod;
+                else{
+                    if(temp[i]!=0){
+                        int ct=temp[i];
+                        (org[i]-=ct)%MOD;
+                        (org[i+1]+=ct)%MOD;
+                    }
                 }
-            }
-            hash=temp;
-        }
-
-        int ct=0;
-        
-
-        long long total=0;
-
-        for(int i=0;i<26;i++){
-            if(hash[i]>0){
-                total+=hash[i];
             }
         }
 
-        return total%mod;
+        long long ct=0;
+        int i=0;
+        while(i<26){
+            ct+=org[i];
+            i++;
+        }
 
-        
+        return ct;
+
+
     }
 };
