@@ -2,43 +2,45 @@ class Solution {
 public:
     int maxProfit(vector<int>&arr) {
 
-        pair<int,int>ma;
-        pair<int,int>mi;
+        int maxi=0;
 
-        int maxi=INT_MIN;
-        int mini=INT_MAX;
+        pair<int,int>buy;
+        pair<int,int>sell;
 
-        int ans=INT_MIN;
+        buy.first=arr[0];
+        buy.second=0;
 
+        sell.first=arr[0];
+        sell.second=0;
 
-        for(int i=0;i<arr.size();i++){
+        for(int i=1;i<arr.size();i++){
 
-            if(arr[i]>maxi){
-                maxi=arr[i];
-                ma.first=maxi;
-                ma.second=i;
+            if(buy.second<=sell.second){
+                int profit=sell.first-buy.first;
+                maxi=max(maxi,profit);
+            }
+            else{
+                sell.second=i;
+                sell.first=arr[i];
             }
 
-
-            if(arr[i]<mini){
-                mini=arr[i];
-                mi.first=mini;
-                mi.second=i;
+            if(buy.first>arr[i]){
+                buy.first=arr[i];
+                buy.second=i;
             }
 
-            if(mi.second>ma.second){
-                maxi=arr[i];
-                ma.second=i;
-                ma.first=arr[i];
+            if(arr[i]>sell.first){
+                sell.first=arr[i];
+                sell.second=i;
             }
-
-
-            ans=max(ans,ma.first-mi.first);
         }
 
+        if(buy.second<=sell.second){
+                int profit=sell.first-buy.first;
+                maxi=max(maxi,profit);
+        }
 
-        return ans;
-
+        return maxi;
         
     }
 };
