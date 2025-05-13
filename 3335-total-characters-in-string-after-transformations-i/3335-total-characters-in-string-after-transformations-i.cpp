@@ -2,52 +2,45 @@ class Solution {
 public:
     int lengthAfterTransformations(string str, int t) {
 
-        const int MOD = 1e9 + 7;
+        vector<int>hash(26,0);
 
-       int length=str.length();
+        for(int i=0;i<str.length();i++){
+            hash[str[i]-'a']++;
+        }
 
-       vector<int>hash(26,0);
-
-    for(int i=0;i<str.length();i++){
-        hash[str[i]-'a']++;
-    }
+        const int mod=1e9+7;
 
         while(t--){
 
             vector<int>temp(26,0);
 
             for(int i=0;i<26;i++){
-                char ch='a'+i;
 
-                if(hash[i]!=0 && ch!='z'){
-                    temp[i+1]+=hash[i]%MOD;
+                if(i!=25 && hash[i]>0){
+                    temp[i+1]+=hash[i]%mod;
                 }
 
-                if(hash[i]!=0 && ch=='z'){
-                    temp[0]+=hash[i]%MOD;
-                    temp[1]+=hash[i]%MOD;
+                else if(i==25 && hash[i]>0){
+                    temp[0]+=hash[i]%mod;
+                    temp[1]+=hash[i]%mod;
                 }
-
             }
             hash=temp;
         }
 
-        long long ct=0;
+        int ct=0;
+        
 
+        long long total=0;
 
         for(int i=0;i<26;i++){
-
-            if(hash[i]!=0){
-                ct+=hash[i];
+            if(hash[i]>0){
+                total+=hash[i];
             }
-
-
         }
 
-        return ct%MOD;
+        return total%mod;
 
-        
-           
         
     }
 };
