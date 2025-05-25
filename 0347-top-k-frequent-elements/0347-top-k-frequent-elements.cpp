@@ -1,30 +1,41 @@
 class Solution {
 public:
+    
+    typedef pair<int,int>p;
     vector<int> topKFrequent(vector<int>&arr, int k) {
-
         unordered_map<int,int>mpp;
-
+        
         for(int i=0;i<arr.size();i++){
             mpp[arr[i]]++;
         }
-
-        priority_queue<pair<int,int>>pq;
-
+        
+        priority_queue<p>pq;
+        
         for(auto it:mpp){
-            int num=it.first;
-            int tym=it.second;
-            pq.push({tym,num});
+            pq.push({it.second,it.first});
         }
 
-        vector<int>ans;
-
+        
+        
+        // while(){
+        //     cout<<pq.top().first<<pq.top().second;
+        //     cout<<"\n";
+        //     pq.pop();
+        // }
+        
+        vector<int>v;
+        
         while(k--){
-            int x=pq.top().second;
-            ans.push_back(x);
+            
+            int tym=pq.top().first;
+            int num=pq.top().second;
+            
+            v.push_back(num);
             pq.pop();
+            
         }
-
-        return ans;
+        
+        return v;
         
     }
 };
