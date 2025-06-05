@@ -10,7 +10,7 @@ public:
         if(s1[n - 1] == s2[m - 1]) {
             return dp[n][m] = 1 + lcs(n - 1, m - 1, s1, s2);
         }
-        
+
         return dp[n][m] = max(lcs(n - 1, m, s1, s2), lcs(n, m - 1, s1, s2));
     }
 
